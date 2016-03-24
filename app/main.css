@@ -1,0 +1,25 @@
+.tt-input-text {
+	width: 600px;
+	font-family: sans-serif;
+	font-size: 24px;
+	border: 1px dashed;
+	padding: 5px;
+}
+
+.tt-app input {
+	margin-top: 10px;
+	width: 610px;
+	font-size: 24px;
+}
+
+.current {
+	color: blue;
+}
+
+.correct {
+	color: green;
+}
+
+.incorrect {
+	color: red;
+}
