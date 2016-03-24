@@ -38,20 +38,20 @@ export default class TouchtypeApp extends React.Component {
 		}
 		return this.setState({input: part});
 	}
-  render() {
-    return (
-    	<div className="tt-app">
-	    	<div className="tt-input-text">
-	    		{this.state.parts.map((part) => {
-	    			return <span className={part.className} key={part.id}>{part.text} </span>
-	    		})}
-	    	</div>
-	    	<input
-	        type="text" 
-	        value={this.state.input}
-	       	onChange={this.handleChange.bind(this)}
-		    />
-    	</div>
-    	)
-  }
+	render() {
+		return (
+			<div className="tt-app">
+				<div className="tt-input-text">
+					{this.state.parts.map((part) => {
+						return <span className={part.className} key={part.id}>{part.text} </span>
+					})}
+				</div>
+				<input
+					type="text" 
+					value={this.state.input}
+					onChange={this.handleChange.bind(this)}
+				/>
+			</div>
+		)
+	}
 }
