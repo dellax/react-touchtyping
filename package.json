@@ -13,7 +13,11 @@
     "touchtyping",
     "react"
   ],
-  "author": "",
+  "repository" :
+    { "type" : "git"
+    , "url" : "https://github.com/dellax/react-touchtyping.git"
+    }
+  "author": "dellax",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.5.2",
