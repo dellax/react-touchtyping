@@ -1,11 +1,13 @@
 import React from 'react';
+import Stats from './Stats';
 
 export default class TouchtypeApp extends React.Component {
 	constructor(props) {
 		super(props);
-		let textSplited = props.text.split(" ");
-		let parts = this.createInitialParts(textSplited);
-		this.state = {parts: parts, index: 0, input: ""};
+		let textSplitted = props.text.split(" ");
+		let parts = this.createInitialParts(textSplitted);
+		let stats = {startTimer: false};
+		this.state = {parts: parts, index: 0, input: "", stats: stats};
 	}
 	createInitialParts(textArray) {
 		let parts = [];
@@ -21,6 +23,7 @@ export default class TouchtypeApp extends React.Component {
 		return parts;
 	}
 	handleChange(e) {
+		let stats = {startTimer: true};
 		let part = e.target.value;
 		if (part.charAt(part.length-1) === " ") {
 			let index = this.state.index;
@@ -34,13 +37,14 @@ export default class TouchtypeApp extends React.Component {
 			if (index+1 < parts.length) {
 				parts[index+1].className = "current";
 			}
-			return this.setState({parts: parts, index: this.state.index+1, input: ""});
+			return this.setState({parts: parts, index: this.state.index+1, input: "", stats: stats});
 		}
-		return this.setState({input: part});
+		return this.setState({input: part, stats: stats});
 	}
 	render() {
 		return (
 			<div className="tt-app">
+				<Stats stats={this.state.stats} />
 				<div className="tt-input-text">
 					{this.state.parts.map((part) => {
 						return <span className={part.className} key={part.id}>{part.text} </span>
