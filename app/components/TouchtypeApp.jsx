@@ -4,17 +4,17 @@ import Stats from './Stats';
 export default class TouchtypeApp extends React.Component {
 	constructor(props) {
 		super(props);
-		let textSplitted = props.text.split(" ");
-		let parts = this.createInitialParts(textSplitted);
-		let stats = {runTimer: false, wordCount: 0};
+		let parts = this.createInitialParts(props.text);
+		let stats = {runTimer: false, wordsTyped: 0, correctWords: 0, incorrectWords: 0};
 		this.state = {parts: parts, index: 0, input: "", stats: stats};
 	}
-	createInitialParts(textArray) {
+	createInitialParts(text) {
+		let textSplitted = text.split(" ");
 		let parts = [];
-		for (let i = 0; i < textArray.length; i++) {
+		for (let i = 0; i < textSplitted.length; i++) {
 			let part = {
 				id: i,
-				text: textArray[i],
+				text: textSplitted[i],
 				className: "default"
 			}
 			parts.push(part);
@@ -23,28 +23,31 @@ export default class TouchtypeApp extends React.Component {
 		return parts;
 	}
 	handleChange(e) {
-		let index = this.state.index;
-		let stats = {runTimer: true, wordCount: index};
-		let input = e.target.value;
+		let {parts, index, input, stats} = this.state;
+		let {runTimer, wordsTyped, correctWords, incorrectWords} = this.state.stats;
+		runTimer = true;
+		wordsTyped = index;
+		input = e.target.value;
 		if (input.charAt(input.length-1) === " ") {
-			let parts = this.state.parts;
 			let part = input.substring(0, input.length-1);
 			if (part === parts[index].text) {
 				parts[index].className = "correct";
+				correctWords++;
 			} else {
 				parts[index].className = "incorrect";
+				incorrectWords++;
 			}
 			if (index+1 < parts.length) {
 				parts[index+1].className = "current";
 			} else {
-				stats.runTimer = false;
+				runTimer = false;
 			}
 			index++;
 			input = "";
-			stats.wordCount = index;
-			return this.setState({parts, index, input, stats});
+			wordsTyped = index;
+			stats = {runTimer, wordsTyped, correctWords, incorrectWords};
 		}
-		return this.setState({input, stats});
+		return this.setState({parts, index, input, stats});
 	}
 	render() {
 		return (

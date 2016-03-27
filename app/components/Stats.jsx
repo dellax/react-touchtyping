@@ -7,7 +7,7 @@ export default class Stats extends React.Component {
 		this.state = {secondsElapsed: 0, stats: stats, runTimer: false};
 	}
 	tick() {
-		let wpm = Math.round(this.props.stats.wordCount / (this.state.secondsElapsed / 60.0));
+		let wpm = Math.round(this.props.stats.wordsTyped / (this.state.secondsElapsed / 60.0));
 		let stats = this.state.stats;
 		stats.wpm = wpm;
     this.setState({secondsElapsed: this.state.secondsElapsed + 1, stats: stats});
