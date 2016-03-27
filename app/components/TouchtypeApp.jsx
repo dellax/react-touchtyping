@@ -8,6 +8,7 @@ export default class TouchtypeApp extends React.Component {
 		let stats = {runTimer: false, wordsTyped: 0, correctWords: 0, incorrectWords: 0};
 		this.state = {parts: parts, index: 0, input: "", stats: stats};
 	}
+
 	createInitialParts(text) {
 		let textSplitted = text.split(" ");
 		let parts = [];
@@ -22,14 +23,15 @@ export default class TouchtypeApp extends React.Component {
 		parts[0].className = "current";
 		return parts;
 	}
+
 	handleChange(e) {
 		let {parts, index, input, stats} = this.state;
 		let {runTimer, wordsTyped, correctWords, incorrectWords} = this.state.stats;
 		runTimer = true;
 		wordsTyped = index;
 		input = e.target.value;
-		if (input.charAt(input.length-1) === " ") {
-			let part = input.substring(0, input.length-1);
+		if (input.charAt(input.length - 1) === " ") {
+			let part = input.substring(0, input.length - 1);
 			if (part === parts[index].text) {
 				parts[index].className = "correct";
 				correctWords++;
@@ -37,8 +39,8 @@ export default class TouchtypeApp extends React.Component {
 				parts[index].className = "incorrect";
 				incorrectWords++;
 			}
-			if (index+1 < parts.length) {
-				parts[index+1].className = "current";
+			if (index + 1 < parts.length) {
+				parts[index + 1].className = "current";
 			} else {
 				runTimer = false;
 			}
@@ -49,17 +51,18 @@ export default class TouchtypeApp extends React.Component {
 		}
 		return this.setState({parts, index, input, stats});
 	}
+
 	render() {
 		return (
 			<div className="tt-app">
-				<Stats stats={this.state.stats} />
+				<Stats stats={this.state.stats}/>
 				<div className="tt-input-text">
 					{this.state.parts.map((part) => {
 						return <span className={part.className} key={part.id}>{part.text} </span>
 					})}
 				</div>
 				<input
-					type="text" 
+					type="text"
 					value={this.state.input}
 					onChange={this.handleChange.bind(this)}
 				/>
