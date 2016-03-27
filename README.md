@@ -1,6 +1,7 @@
 # React touchtyping application
-![Status][status-image] [![MIT License][license-image]][license-url]  
+![Status][status-image] [![MIT License][license-image]][license-url]   
 Based on nice react-boilerplate from [survivejs.com](http://survivejs.com/)  
+
 ---
 ### Demo
 [dellax.github.com/react-touchtyping](http://dellax.github.io/react-touchtyping)
