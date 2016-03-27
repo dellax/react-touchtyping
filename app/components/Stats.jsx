@@ -3,10 +3,14 @@ import React from 'react';
 export default class Stats extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {secondsElapsed: 0, stats: this.props.stats, runTimer: false};
+		let stats = {wpm: 0}
+		this.state = {secondsElapsed: 0, stats: stats, runTimer: false};
 	}
 	tick() {
-    this.setState({secondsElapsed: this.state.secondsElapsed + 1});
+		let wpm = Math.round(this.props.stats.wordCount / (this.state.secondsElapsed / 60.0));
+		let stats = this.state.stats;
+		stats.wpm = wpm;
+    this.setState({secondsElapsed: this.state.secondsElapsed + 1, stats: stats});
   }
   runTimer() {
     	this.timer = setInterval(this.tick.bind(this), 1000);
@@ -25,7 +29,7 @@ export default class Stats extends React.Component {
 			this.stopTimer();
 		}
 		return (
-			<div>Stats: time {this.state.secondsElapsed} </div>
+			<div>Stats: time: {this.state.secondsElapsed}, WPM: {this.state.stats.wpm}</div>
 		)	
 	}
 }

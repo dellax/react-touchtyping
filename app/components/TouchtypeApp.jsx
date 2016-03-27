@@ -6,7 +6,7 @@ export default class TouchtypeApp extends React.Component {
 		super(props);
 		let textSplitted = props.text.split(" ");
 		let parts = this.createInitialParts(textSplitted);
-		let stats = {runTimer: false};
+		let stats = {runTimer: false, wordCount: 0};
 		this.state = {parts: parts, index: 0, input: "", stats: stats};
 	}
 	createInitialParts(textArray) {
@@ -23,10 +23,10 @@ export default class TouchtypeApp extends React.Component {
 		return parts;
 	}
 	handleChange(e) {
-		let stats = {runTimer: true};
+		let index = this.state.index;
+		let stats = {runTimer: true, wordCount: index};
 		let input = e.target.value;
 		if (input.charAt(input.length-1) === " ") {
-			let index = this.state.index;
 			let parts = this.state.parts;
 			let part = input.substring(0, input.length-1);
 			if (part === parts[index].text) {
@@ -41,6 +41,7 @@ export default class TouchtypeApp extends React.Component {
 			}
 			index++;
 			input = "";
+			stats.wordCount = index;
 			return this.setState({parts, index, input, stats});
 		}
 		return this.setState({input, stats});
