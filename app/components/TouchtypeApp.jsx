@@ -30,7 +30,7 @@ export default class TouchtypeApp extends React.Component {
 		runTimer = true;
 		wordsTyped = index;
 		input = e.target.value;
-		if (input.charAt(input.length - 1) === " ") {
+		if (input.charAt(input.length - 1) === " " && index < parts.length) {
 			let part = input.substring(0, input.length - 1);
 			if (part === parts[index].text) {
 				parts[index].className = "correct";
@@ -47,8 +47,8 @@ export default class TouchtypeApp extends React.Component {
 			index++;
 			input = "";
 			wordsTyped = index;
-			stats = {runTimer, wordsTyped, correctWords, incorrectWords};
 		}
+		stats = {runTimer, wordsTyped, correctWords, incorrectWords};
 		return this.setState({parts, index, input, stats});
 	}
 
