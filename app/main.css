@@ -1,18 +1,20 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:100italic,100,300italic,300,700italic,700);
 .tt-app {
 	width: 610px;
+	font-family: 'Roboto';
 }
 
 .tt-input-text {
 	width: 600px;
-	font-family: sans-serif;
+	font-family: 'Roboto';
 	font-size: 24px;
 	border: 1px dashed;
 	padding: 5px;
 }
 
 .tt-app input {
-	margin-top: 10px;
+	margin-top: 5px;
+	font-family: 'Roboto';
 	width: 610px;
 	font-size: 24px;
 }
@@ -30,9 +32,10 @@
 }
 
 .progress {
+	width: 610px;
 	margin-top: 5px;
   font-size: 1.2em;
-  font-family: Roboto;
+  font-family: 'Roboto';
   height: 20px;
   background: #bdbdbd;
   border-radius: 2px;
@@ -55,7 +58,7 @@
   font-size: 12px;
   font-weight: normal;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
-  line-height: 19px;
+  line-height: 20px;
   display: block;
   position: relative;
   top: -1px;
