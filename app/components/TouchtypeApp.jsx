@@ -73,3 +73,7 @@ export default class TouchtypeApp extends React.Component {
 			)
 	}
 }
+
+TouchtypeApp.propTypes = {
+	text: React.PropTypes.string.isRequired
+};
