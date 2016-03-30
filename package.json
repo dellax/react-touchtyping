@@ -13,10 +13,10 @@
     "touchtyping",
     "react"
   ],
-  "repository" :
-    { "type" : "git"
-    , "url" : "https://github.com/dellax/react-touchtyping.git"
-    },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dellax/react-touchtyping.git"
+  },
   "author": "dellax",
   "license": "MIT",
   "devDependencies": {
@@ -47,6 +47,7 @@
     "react-addons-update": "^0.14.7",
     "react-dnd": "^2.1.0",
     "react-dnd-html5-backend": "^2.1.2",
-    "react-dom": "^0.14.7"
+    "react-dom": "^0.14.7",
+    "react-progress-bar-battlenet-style": "^1.0.0"
   }
 }

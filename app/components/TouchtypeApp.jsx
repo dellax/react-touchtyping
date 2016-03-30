@@ -1,5 +1,6 @@
 import React from 'react';
 import Stats from './Stats';
+import ProgressBar from './ProgressBar';
 
 export default class TouchtypeApp extends React.Component {
 	constructor(props) {
@@ -53,17 +54,19 @@ export default class TouchtypeApp extends React.Component {
 	}
 
 	render() {
+		const {parts, index, input, stats} = this.state;
 		return (
 			<div className="tt-app">
-				<Stats stats={this.state.stats}/>
+				<Stats stats={stats}/>
 				<div className="tt-input-text">
-					{this.state.parts.map((part) => {
+					{parts.map((part) => {
 						return <span className={part.className} key={part.id}>{part.text} </span>
 					})}
 				</div>
+				<ProgressBar completed={100/parts.length * index} />
 				<input
 					type="text"
-					value={this.state.input}
+					value={input}
 					onChange={this.handleChange.bind(this)}
 				/>
 			</div>
