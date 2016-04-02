@@ -6,7 +6,7 @@ the workers realize that? It was from a man in Arizona. What
 suffering will have to be endured.`.replace(/(\n)+/g, '');
 
 const App = () => (
-	<div>
+	<div id="page-wrap">
 		<TouchType text={text} />;
 	</div>	
 )

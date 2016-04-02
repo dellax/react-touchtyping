@@ -58,18 +58,20 @@ export default class TouchType extends React.Component {
 		const completed = 100/parts.length * index;
 		return (
 			<div className="tt-app">
-				<Stats stats={stats}/>
-				<div className="tt-input-text">
-					{parts.map((part) => {
-						return <span className={part.className} key={part.id}>{`${part.text} `}</span>
-					})}
+				<div className="tt-app-main">
+					<Stats stats={stats}/>
+					<div className="tt-input-text">
+						{parts.map((part) => {
+							return <span className={part.className} key={part.id}>{`${part.text} `}</span>
+						})}
+					</div>
+					<ProgressBar completed={completed} />
+					<input
+						type="text"
+						value={input}
+						onChange={this.handleChange.bind(this)}
+					/>
 				</div>
-				<ProgressBar completed={completed} />
-				<input
-					type="text"
-					value={input}
-					onChange={this.handleChange.bind(this)}
-				/>
 			</div>
 		)
 	}

@@ -1,7 +1,17 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:100italic,100,300italic,300,700italic,700);
+#page-wrap {
+	width: 1000px;
+	margin: 0 auto;
+}
+
 .tt-app {
-	width: 610px;
+	width: 1000px;
 	font-family: 'Roboto';
+}
+
+.tt-app-main {
+	width: 610px;
+	margin: auto;
 }
 
 .tt-input-text {
