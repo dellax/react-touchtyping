@@ -3,14 +3,13 @@ import React from 'react';
 export default class Stats extends React.Component {
 	constructor(props) {
 		super(props);
-		let stats = {wpm: 0}
-		this.state = {secondsElapsed: 0, stats, runTimer: false};
+		this.timerRunning = false;
+		this.state = {secondsElapsed: 0, wpm: 0};
 	}
 
 	tick() {
 		let wpm = this.countWpm();
-		let stats = {wpm};
-		this.setState({secondsElapsed: this.state.secondsElapsed + 1, stats});
+		this.setState({secondsElapsed: this.state.secondsElapsed + 1, wpm});
 	}
 
 	countWpm() {
@@ -34,14 +33,15 @@ export default class Stats extends React.Component {
 	}
 
 	render() {
-		if (this.props.stats.runTimer && !this.state.runTimer) {
-			this.state.runTimer = true;
+		if (this.props.stats.runTimer && !this.timerRunning) {
+			this.timerRunning = true;
 			this.runTimer();
-		} else if (!this.props.stats.runTimer && this.state.runTimer) {
+		} else if (!this.props.stats.runTimer && this.timerRunning) {
 			this.stopTimer();
 		}
+		const {secondsElapsed, wpm} = this.state;
 		return (
-			<div>Stats: time: {this.state.secondsElapsed}, WPM: {this.state.stats.wpm}</div>
+			<div>Stats: time: {secondsElapsed}, WPM: {wpm}</div>
 		)
 	}
 }
