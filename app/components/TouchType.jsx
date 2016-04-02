@@ -5,9 +5,15 @@ import ProgressBar from './ProgressBar';
 export default class TouchType extends React.Component {
 	constructor(props) {
 		super(props);
-		let parts = this.createInitialParts(props.text);
-		let stats = {runTimer: false, wordsTyped: 0, correctWords: 0, incorrectWords: 0};
-		this.state = {parts: parts, index: 0, input: "", stats: stats};
+		this.index = 0;
+		this.stats = {
+			runTimer: false, 
+			wordsTyped: 0, 
+			correctWords: 0, 
+			incorrectWords: 0
+		};
+		const parts = this.createInitialParts(props.text);
+		this.state = {parts, input: ''};
 	}
 
 	createInitialParts(text) {
@@ -26,40 +32,41 @@ export default class TouchType extends React.Component {
 	}
 
 	handleChange(e) {
-		let {parts, index, input, stats} = this.state;
-		let {runTimer, wordsTyped, correctWords, incorrectWords} = this.state.stats;
+		let {parts, input} = this.state;
+		let {runTimer, wordsTyped, correctWords, incorrectWords} = this.stats;
+		let i = this.index;
 		runTimer = true;
-		wordsTyped = index;
+		wordsTyped = i;
 		input = e.target.value;
-		if (input.charAt(input.length - 1) === " " && index < parts.length) {
-			let part = input.substring(0, input.length - 1);
-			if (part === parts[index].text) {
-				parts[index].className = "correct";
+		if (input.endsWith(' ') && i < parts.length) {
+			let part = input.slice(0, -1);
+			if (part === parts[i].text) {
+				parts[i].className = "correct";
 				correctWords++;
 			} else {
-				parts[index].className = "incorrect";
+				parts[i].className = "incorrect";
 				incorrectWords++;
 			}
-			if (index + 1 < parts.length) {
-				parts[index + 1].className = "current";
+			if (i + 1 < parts.length) {
+				parts[i + 1].className = "current";
 			} else {
 				runTimer = false;
 			}
-			index++;
+			i++;
 			input = "";
-			wordsTyped = index;
 		}
-		stats = {runTimer, wordsTyped, correctWords, incorrectWords};
-		return this.setState({parts, index, input, stats});
+		this.index = i;
+		this.stats = {runTimer, wordsTyped: i, correctWords, incorrectWords};
+		this.setState({parts, input});
 	}
 
 	render() {
-		const {parts, index, input, stats} = this.state;
-		const completed = 100/parts.length * index;
+		const {parts, input} = this.state;
+		const completed = 100 / parts.length * this.stats.index;
 		return (
 			<div className="tt-app">
 				<div className="tt-app-main">
-					<Stats stats={stats}/>
+					<Stats stats={this.stats}/>
 					<div className="tt-input-text">
 						{parts.map((part) => {
 							return <span className={part.className} key={part.id}>{`${part.text} `}</span>
