@@ -2,7 +2,7 @@ import React from 'react';
 import Stats from './Stats';
 import ProgressBar from './ProgressBar';
 
-export default class TouchtypeApp extends React.Component {
+export default class TouchType extends React.Component {
 	constructor(props) {
 		super(props);
 		let parts = this.createInitialParts(props.text);
@@ -75,6 +75,6 @@ export default class TouchtypeApp extends React.Component {
 	}
 }
 
-TouchtypeApp.propTypes = {
+TouchType.propTypes = {
 	text: React.PropTypes.string.isRequired
 };
