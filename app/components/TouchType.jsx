@@ -60,7 +60,7 @@ export default class TouchType extends React.Component {
 
 	render() {
 		const {parts, input} = this.state;
-		const completed = 100 / parts.length * this.stats.index;
+		const completed = 100 / parts.length * this.index;
 		return (
 			<div className="tt-app">
 				<div className="tt-app-main">
