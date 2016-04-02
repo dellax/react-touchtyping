@@ -60,7 +60,7 @@ export default class TouchtypeApp extends React.Component {
 				<Stats stats={stats}/>
 				<div className="tt-input-text">
 					{parts.map((part) => {
-						return <span className={part.className} key={part.id}>{part.text} </span>
+						return <span className={part.className} key={part.id}>{`${part.text} `}</span>
 					})}
 				</div>
 				<ProgressBar completed={100/parts.length * index} />
