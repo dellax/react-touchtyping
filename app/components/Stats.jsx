@@ -13,10 +13,12 @@ export default class Stats extends React.Component {
 	}
 
 	countWpm() {
-		let correctWords = this.props.stats.correctWords;
+		let incorrectWordsCount = this.props.stats.incorrectWords.length;
+		console.log(this.props.stats.incorrectWords);
+		let correctWordsCount = this.props.stats.wordsTyped - incorrectWordsCount;
 		let secondsElapsed = this.state.secondsElapsed;
 		if (secondsElapsed === 0) return 0;
-		let wpm = Math.round(correctWords / (secondsElapsed / 60.0));
+		let wpm = Math.round(correctWordsCount / (secondsElapsed / 60.0));
 		return wpm;
 	}
 

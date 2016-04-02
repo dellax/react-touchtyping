@@ -8,16 +8,15 @@ export default class TouchType extends React.Component {
 		this.index = 0;
 		this.stats = {
 			runTimer: false, 
-			wordsTyped: 0, 
-			correctWords: 0, 
-			incorrectWords: 0
+			wordsTyped: 0,
+			incorrectWords: []
 		};
 		const parts = this.createInitialParts(props.text);
 		this.state = {parts, input: ''};
 	}
 
 	createInitialParts(text) {
-		let textSplitted = text.split(" ");
+		let textSplitted = text.split(' ');
 		let parts = [];
 		for (let i = 0; i < textSplitted.length; i++) {
 			let part = {
@@ -33,7 +32,7 @@ export default class TouchType extends React.Component {
 
 	handleChange(e) {
 		let {parts, input} = this.state;
-		let {runTimer, wordsTyped, correctWords, incorrectWords} = this.stats;
+		let {runTimer, wordsTyped, incorrectWords} = this.stats;
 		let i = this.index;
 		runTimer = true;
 		wordsTyped = i;
@@ -42,10 +41,9 @@ export default class TouchType extends React.Component {
 			let part = input.slice(0, -1);
 			if (part === parts[i].text) {
 				parts[i].className = "correct";
-				correctWords++;
 			} else {
 				parts[i].className = "incorrect";
-				incorrectWords++;
+				incorrectWords.push(parts[i].text);
 			}
 			if (i + 1 < parts.length) {
 				parts[i + 1].className = "current";
@@ -53,10 +51,10 @@ export default class TouchType extends React.Component {
 				runTimer = false;
 			}
 			i++;
-			input = "";
+			input = '';
 		}
 		this.index = i;
-		this.stats = {runTimer, wordsTyped: i, correctWords, incorrectWords};
+		this.stats = {runTimer, wordsTyped: i, incorrectWords};
 		this.setState({parts, input});
 	}
 
