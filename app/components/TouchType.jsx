@@ -1,6 +1,7 @@
 import React from 'react';
 import Stats from './Stats';
 import ProgressBar from './ProgressBar';
+import KeySuggestion from './KeySuggestion';
 
 export default class TouchType extends React.Component {
 	constructor(props) {
@@ -76,6 +77,7 @@ export default class TouchType extends React.Component {
 						value={input}
 						onChange={this.handleChange.bind(this)}
 					/>
+					<KeySuggestion />
 				</div>
 			</div>
 		)
