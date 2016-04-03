@@ -1,9 +1,40 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 export default class KeySuggestion extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {keys: props.keyboardSettings.keys};
+		let keys = props.keyboardSettings.keys;
+		this.keyMap = this.createKeyMap(keys);
+		this.state = {keys: keys};
+	}
+
+	createKeyMap(keys) {
+		let keyMap = new Map();
+		let index = 0;
+		for (let key of keys) {
+			// TODO correct shift and finger
+			switch(key.type) {
+				case 'doubleKey':
+					keyMap.set(key.top, {index, shift: "left"});
+					keyMap.set(key.bottom, {index, shift: "left"});
+					break;
+				case 'textKey':
+					keyMap.set(key.text, {index, shift: "left"});
+					break;
+				default:
+					keyMap.set(key.char, {index, shift: "left"});
+			}
+			index++;
+		}
+		return keyMap;
+	}
+
+	higlightCorrectKey(key) {
+		// TODO
+	}
+
+	higlightIncorrectKey(key) {
+		// TODO
 	}
 
 	render() {
@@ -29,11 +60,17 @@ export default class KeySuggestion extends React.Component {
 	}
 }
 
-// key types
 const DefaultKey = ({data}) => (
-	// key = {id: 0, type="defaultKey", char:'z'}
 	<div className="key">{data.char}</div>
 )
+
+DefaultKey.propTypes = {
+	data: PropTypes.shape({
+		id: PropTypes.number,
+		type: PropTypes.string,
+		char: PropTypes.string
+	})
+}
 
 const DoubleKey = ({data}) => {
 	// key = {id: 0, type="doubleKey", top:'z', bottom: 'x'}
@@ -45,13 +82,30 @@ const DoubleKey = ({data}) => {
 	)
 }
 
+DoubleKey.propTypes = {
+	data: PropTypes.shape({
+		id: PropTypes.number,
+		type: PropTypes.string,
+		top: PropTypes.string,
+		bottom: PropTypes.string
+	})
+}
+
 const TextKey = ({data}) => {
-	// key = {id: 0, type="textKey", text: "enter", className: "key-delete key-special-r"}
 	return (
 		<div className={`key ${data.className}`}>
 			<span>{data.text}</span>
 		</div>
 	)
+}
+
+TextKey.propTypes = {
+	data: PropTypes.shape({
+		id: PropTypes.number,
+		type: PropTypes.string,
+		text: PropTypes.string,
+		className: PropTypes.string
+	})
 }
 
 const keyboardSettings = {
@@ -121,7 +175,7 @@ keyboardSettings.keys = [
 	{id: 54, type: 'textKey', text: 'ctrl', className: 'key-narrow key-special-l'},
 	{id: 55, type: 'textKey', text: 'win', className: 'key-narrow key-special-l'},
 	{id: 56, type: 'textKey', text: 'alt', className: 'key-narrow key-special-l'},
-	{id: 57, type: 'textKey', text: '', className: 'key key-space'},
+	{id: 57, type: 'textKey', text: ' ', className: 'key key-space'},
 	{id: 58, type: 'textKey', text: 'alt', className: 'key-narrow key-special-r'},
 	{id: 59, type: 'textKey', text: 'fn', className: 'key-narrow key-special-r'},
 	{id: 60, type: 'textKey', text: 'pn', className: 'key-narrow key-special-r'},
@@ -131,7 +185,7 @@ keyboardSettings.keys = [
 KeySuggestion.defaultProps = {
 	keyboardSettings: keyboardSettings,
 	data: {
-		correctChar: 'a',
-		incorrectChar: 'b'
+		correctKey: 'a',
+		incorrectKey: 'b'
 	}
 }

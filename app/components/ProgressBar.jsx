@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 export default class ProgressBar extends React.Component {
 	constructor(props) {
@@ -51,8 +51,8 @@ export default class ProgressBar extends React.Component {
 }
 
 ProgressBar.propTypes = {
-  colors: React.PropTypes.arrayOf(React.PropTypes.number),
-  completed: React.PropTypes.number.isRequired
+  colors: PropTypes.arrayOf(PropTypes.number),
+  completed: PropTypes.number.isRequired
 };
 
 ProgressBar.defaultProps = {

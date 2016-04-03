@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Stats from './Stats';
 import ProgressBar from './ProgressBar';
 import KeySuggestion from './KeySuggestion';
@@ -85,5 +85,5 @@ export default class TouchType extends React.Component {
 }
 
 TouchType.propTypes = {
-	text: React.PropTypes.string.isRequired
+	text: PropTypes.string.isRequired
 };
