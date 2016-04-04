@@ -314,7 +314,7 @@ svg {
   margin: 0.5em auto;
 }
 
-.is-active {
+.incorrect-key {
   background-image: linear-gradient(#3092d9, #50abe3);
   border-bottom-color: #4998c9;
   border-top-color: #349fec;
@@ -324,7 +324,7 @@ svg {
   cursor: pointer;
 }
 
-.is-active:before,
-.is-active:after {
+.incorrect-key:before,
+.incorrect-key:after {
   background-image: linear-gradient(#349fec, #4998c9);
 }

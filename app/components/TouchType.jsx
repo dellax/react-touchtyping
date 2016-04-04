@@ -77,7 +77,7 @@ export default class TouchType extends React.Component {
 						value={input}
 						onChange={this.handleChange.bind(this)}
 					/>
-					<KeySuggestion />
+					<KeySuggestion pressedKey={'j'} />
 				</div>
 			</div>
 		)
