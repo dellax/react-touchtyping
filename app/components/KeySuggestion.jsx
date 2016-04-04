@@ -13,6 +13,7 @@ export default class KeySuggestion extends React.Component {
 	}
 
 	componentWillReceiveProps(props) {
+		this.unHighlightKeys();
 		this.highlightKeys();
 	}
 
@@ -49,11 +50,17 @@ export default class KeySuggestion extends React.Component {
 		// TODO
 		// isUpercaseLetter
 		// 
+		if (this.props.pressedKey === '') return;
 		let c = this.props.pressedKey.toUpperCase();
 		let index = this.keyMap.get(c).index;
-		console.log(index);
 		this.keys[index].status = 'incorrect-key';
+		this.highlightedKeys.push(index);
+	}
 
+	unHighlightKeys() {
+		for (let index of this.highlightedKeys) {
+			this.keys[index].status = '';
+		}
 	}
 
 	render() {
