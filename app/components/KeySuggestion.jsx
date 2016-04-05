@@ -4,7 +4,7 @@ export default class KeySuggestion extends React.Component {
 	constructor(props) {
 		super(props);
 		this.keys = props.keyboardSettings.keys;
-		this.highlightedKeys = [];
+		this.highlightedKeysIndexes = [];
 		for (let key of this.keys) {
 			key.status = '';
 		}
@@ -54,11 +54,11 @@ export default class KeySuggestion extends React.Component {
 		let c = this.props.pressedKey.toUpperCase();
 		let index = this.keyMap.get(c).index;
 		this.keys[index].status = 'incorrect-key';
-		this.highlightedKeys.push(index);
+		this.highlightedKeysIndexes.push(index);
 	}
 
 	unHighlightKeys() {
-		for (let index of this.highlightedKeys) {
+		for (let index of this.highlightedKeysIndexes) {
 			this.keys[index].status = '';
 		}
 	}

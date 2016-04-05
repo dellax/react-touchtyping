@@ -32,6 +32,7 @@
 
 .current {
 	color: blue;
+  text-decoration: underline;
 }
 
 .correct {
