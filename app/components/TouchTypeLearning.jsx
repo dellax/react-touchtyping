@@ -6,17 +6,17 @@ import KeySuggestion from './KeySuggestion';
 export default class TouchType extends React.Component {
 	constructor(props) {
 		super(props);
-		this.index = 0;
+		this.currentLetterIndex = 0;
 		this.shiftLocation = 0;
 		this.shiftKeyPressed = false;
 		this.userInput = '';
 		this.stats = {
-			runTimer: false, 
+			runTimer: false,
 			wordsTyped: 0,
 			incorrectWords: []
 		};
-		const parts = this.createInitialParts(props.text);
-		this.state = {parts, input: ''};
+		const letterTextParts = this.createInitialParts(props.text);
+		this.state = {letterTextParts, input: ''};
 	}
 
 	createInitialParts(text) {
@@ -43,21 +43,21 @@ export default class TouchType extends React.Component {
 	handleChange(e) {
 		console.log(this.shiftLocation);
 		console.log(this.shiftKeyPressed);
-		let {parts, input} = this.state;
+		let {letterTextParts, input} = this.state;
 		let {runTimer, wordsTyped, incorrectWords} = this.stats;
-		let i = this.index;
+		let i = this.currentLetterIndex;
 		runTimer = true;
 		wordsTyped = i;
 		input = e.target.value;
 		// TODO add mistakes and refactor
-		if (i < parts.length) {
+		if (i < letterTextParts.length) {
 			let part = input.charAt(input.length-1);
-			if (part === parts[i].text) {
+			if (part === letterTextParts[i].text) {
 				this.userInput += part;
-				parts[i].className = "correct";
-				
-				if (i + 1 < parts.length) {
-				parts[i + 1].className = "current";
+				letterTextParts[i].className = "correct";
+
+				if (i + 1 < letterTextParts.length) {
+					letterTextParts[i + 1].className = "current";
 				} else {
 					runTimer = false;
 				}
@@ -67,23 +67,23 @@ export default class TouchType extends React.Component {
 				//parts[i].className = "current";
 				//incorrectWords.push(parts[i].text);
 			}
-			
+
 
 		}
-		this.index = i;
+		this.currentLetterIndex = i;
 		this.stats = {runTimer, wordsTyped: i, incorrectWords};
-		this.setState({parts, input: this.userInput});
+		this.setState({letterTextParts, input: this.userInput});
 	}
 
 	render() {
-		const {parts, input} = this.state;
-		const completed = 100 / parts.length * this.index;
+		const {letterTextParts, input} = this.state;
+		const completed = 100 / letterTextParts.length * this.index;
 		return (
 			<div className="tt-app">
 				<div className="tt-app-main">
 					<Stats stats={this.stats}/>
 					<div className="tt-input-text">
-						{parts.map((part) => {
+						{letterTextParts.map((part) => {
 							return <span className={part.className} key={part.id}>{`${part.text}`}</span>
 						})}
 					</div>
