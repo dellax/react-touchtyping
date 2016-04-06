@@ -7,11 +7,14 @@ export default class TouchType extends React.Component {
 	constructor(props) {
 		super(props);
 		this.currentLetterIndex = 0;
+		this.currentWordIndex = 0;
 		this.shiftLocation = 0;
 		this.shiftKeyPressed = false;
 		this.userInput = '';
+		this.lastIncorrectLetterIndex = -1;
 		this.stats = {
 			runTimer: false,
+			lettersTyped: 0,
 			wordsTyped: 0,
 			incorrectWords: []
 		};
@@ -44,15 +47,16 @@ export default class TouchType extends React.Component {
 		console.log(this.shiftLocation);
 		console.log(this.shiftKeyPressed);
 		let {letterTextParts, input} = this.state;
-		let {runTimer, wordsTyped, incorrectWords} = this.stats;
+		let {runTimer, lettersTyped, wordsTyped, incorrectWords} = this.stats;
 		let i = this.currentLetterIndex;
 		runTimer = true;
-		wordsTyped = i;
 		input = e.target.value;
 		// TODO add mistakes and refactor
 		if (i < letterTextParts.length) {
 			let part = input.charAt(input.length-1);
+
 			if (part === letterTextParts[i].text) {
+				if (part === ' ') this.currentWordIndex++;
 				this.userInput += part;
 				letterTextParts[i].className = "correct";
 
@@ -62,16 +66,23 @@ export default class TouchType extends React.Component {
 					runTimer = false;
 				}
 				i++;
+				if (this.lastIncorrectLetterIndex != -1) {
+					let j = this.lastIncorrectLetterIndex;
+					letterTextParts[j].className = "incorrect";
+					this.lastIncorrectLetterIndex = -1;
+				}
 			} else {
-
-				//parts[i].className = "current";
-				//incorrectWords.push(parts[i].text);
+				this.lastIncorrectLetterIndex = i;
 			}
-
-
 		}
+
 		this.currentLetterIndex = i;
-		this.stats = {runTimer, wordsTyped: i, incorrectWords};
+		this.stats = {
+			runTimer, 
+			lettersTyped: i, 
+			wordsTyped: this.currentWordIndex, 
+			incorrectWords
+		};
 		this.setState({letterTextParts, input: this.userInput});
 	}
 
@@ -82,7 +93,7 @@ export default class TouchType extends React.Component {
 			<div className="tt-app">
 				<div className="tt-app-main">
 					<Stats stats={this.stats}/>
-					<div className="tt-input-text">
+					<div className="tt-input-text-learning">
 						{letterTextParts.map((part) => {
 							return <span className={part.className} key={part.id}>{`${part.text}`}</span>
 						})}
