@@ -104,7 +104,7 @@ export default class TouchType extends React.Component {
 					<Stats stats={this.stats}/>
 					<div className="tt-input-text-learning">
 						{letterTextParts.map((part) => {
-							return <span className={part.className} key={part.id}>{`${part.text}`}</span>
+							return <span className={part.className} key={part.id}>{part.text}</span>
 						})}
 					</div>
 					<ProgressBar completed={completed} />
