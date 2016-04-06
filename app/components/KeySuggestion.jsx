@@ -38,22 +38,28 @@ export default class KeySuggestion extends React.Component {
 	}
 
 	highlightKeys() {
-		this.higlightCorrectKey();
-		this.higlightIncorrectKey();
+		// TODO
+		const {
+			pressedKey, 
+			expectedKey, 
+			nextKey,
+			shiftKeyPressed, 
+			shiftLocation
+		} = this.props.keyInfo;
+		console.log(shiftLocation);
+		console.log(shiftKeyPressed);
+		if (pressedKey === '') return;
+		this.highlightKey(nextKey, 'correct-key');
+		if (pressedKey != expectedKey) {
+			this.highlightKey(pressedKey, 'incorrect-key');
+		}
 	}
 
-	higlightCorrectKey() {
-		// TODO
-	}
-
-	higlightIncorrectKey() {
-		// TODO
-		// isUpercaseLetter
-		// 
-		if (this.props.pressedKey === '') return;
-		let c = this.props.pressedKey.toUpperCase();
+	highlightKey(key, status) {
+		// TODO add chech if ist letter, if yes, then to UPPERCASE
+		let c = key.toUpperCase();
 		let index = this.keyMap.get(c).index;
-		this.keys[index].status = 'incorrect-key';
+		this.keys[index].status = status;
 		this.highlightedKeysIndexes.push(index);
 	}
 

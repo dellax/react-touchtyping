@@ -8,8 +8,8 @@ export default class TouchType extends React.Component {
 		super(props);
 		this.currentLetterIndex = 0;
 		this.currentWordIndex = 0;
-		this.shiftLocation = 0;
 		this.shiftKeyPressed = false;
+		this.shiftLocation = 0;
 		this.userInput = '';
 		this.lastIncorrectLetterIndex = -1;
 		this.stats = {
@@ -19,6 +19,13 @@ export default class TouchType extends React.Component {
 			incorrectWords: []
 		};
 		const letterTextParts = this.createInitialParts(props.text);
+		this.keyInfo = {
+			pressedKey: '',
+			expectedKey: '',
+			nextKey: letterTextParts[0],
+			shiftKeyPressed: this.shiftKeyPressed,
+			shiftLocation: this.shiftLocation
+		}
 		this.state = {letterTextParts, input: ''};
 	}
 
@@ -44,26 +51,28 @@ export default class TouchType extends React.Component {
 	}
 
 	handleChange(e) {
-		console.log(this.shiftLocation);
-		console.log(this.shiftKeyPressed);
 		let {letterTextParts, input} = this.state;
 		let {runTimer, lettersTyped, wordsTyped, incorrectWords} = this.stats;
 		let i = this.currentLetterIndex;
 		runTimer = true;
 		input = e.target.value;
 		// TODO add mistakes and refactor
+		this.keyInfo.shiftKeyPressed = this.shiftKeyPressed;
+		this.keyInfo.shiftLocation = this.shiftLocation;
 		if (i < letterTextParts.length) {
 			let part = input.charAt(input.length-1);
-
+			this.keyInfo.expectedKey = letterTextParts[i].text;
+			this.keyInfo.pressedKey = part;
 			if (part === letterTextParts[i].text) {
 				if (part === ' ') this.currentWordIndex++;
 				this.userInput += part;
 				letterTextParts[i].className = "correct";
-
 				if (i + 1 < letterTextParts.length) {
 					letterTextParts[i + 1].className = "current";
+					this.keyInfo.nextKey = letterTextParts[i + 1].text;
 				} else {
 					runTimer = false;
+					this.keyInfo.pressedKey = '';
 				}
 				i++;
 				if (this.lastIncorrectLetterIndex != -1) {
@@ -101,12 +110,11 @@ export default class TouchType extends React.Component {
 					<ProgressBar completed={completed} />
 					<textarea
 						rows="4"
-						
 						value={input}
 						onChange={this.handleChange.bind(this)}
 						onKeyDown={this.handleOnKeyUp.bind(this)}
 					/>
-					<KeySuggestion pressedKey={'k'} />
+					<KeySuggestion keyInfo={this.keyInfo} />
 				</div>
 			</div>
 		)
