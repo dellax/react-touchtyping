@@ -88,7 +88,7 @@ export default class TouchType extends React.Component {
 
 	render() {
 		const {letterTextParts, input} = this.state;
-		const completed = 100 / letterTextParts.length * this.index;
+		const completed = 100 / letterTextParts.length * this.currentLetterIndex;
 		return (
 			<div className="tt-app">
 				<div className="tt-app-main">
@@ -99,8 +99,9 @@ export default class TouchType extends React.Component {
 						})}
 					</div>
 					<ProgressBar completed={completed} />
-					<input
-						type="text"
+					<textarea
+						rows="4"
+						
 						value={input}
 						onChange={this.handleChange.bind(this)}
 						onKeyDown={this.handleOnKeyUp.bind(this)}

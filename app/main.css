@@ -30,6 +30,13 @@
 	font-size: 24px;
 }
 
+.tt-app textarea {
+  margin-top: 5px;
+  font-family: "Courier New", Courier, monospace;
+  width: 610px;
+  font-size: 24px;
+}
+
 .current {
 	color: blue;
   text-decoration: underline;
@@ -280,7 +287,7 @@
 
 
 
-span {
+.keyboard span {
   font-size: 90%;
 }
 
