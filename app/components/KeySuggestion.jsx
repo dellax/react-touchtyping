@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import {LeftHand, RightHand} from './Hands.jsx';
 
 export default class KeySuggestion extends React.Component {
 	constructor(props) {
@@ -77,7 +78,8 @@ export default class KeySuggestion extends React.Component {
 		const keys = this.keys;
 		console.log('renderujem');
 		return (
-			<div className="keysuggestion">
+			<div className="key-suggestion">
+				<LeftHand />
 				<div className="keyboard">
 					{keys.map((key) => {
 						switch(key.type) {
@@ -92,6 +94,7 @@ export default class KeySuggestion extends React.Component {
 						}
 					})}
 				</div>
+				<RightHand />
 			</div>
 		)
 	}

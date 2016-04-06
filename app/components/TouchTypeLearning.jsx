@@ -114,8 +114,8 @@ export default class TouchType extends React.Component {
 						onChange={this.handleChange.bind(this)}
 						onKeyDown={this.handleOnKeyUp.bind(this)}
 					/>
-					<KeySuggestion keyInfo={this.keyInfo} />
 				</div>
+				<KeySuggestion keyInfo={this.keyInfo} />
 			</div>
 		)
 	}
