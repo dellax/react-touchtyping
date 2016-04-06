@@ -109,15 +109,13 @@ DefaultKey.propTypes = {
 	})
 }
 
-const DoubleKey = ({data}) => {
+const DoubleKey = ({data}) => (
 	// key = {id: 0, type="doubleKey", top:'z', bottom: 'x'}
-	return (
-		<div className={`key ${data.status}`}>
-			<div className='top'>{data.top}</div>
-			<div className='bottom'>{data.bottom}</div>
-		</div>
-	)
-}
+	<div className={`key ${data.status}`}>
+		<div className='top'>{data.top}</div>
+		<div className='bottom'>{data.bottom}</div>
+	</div>
+)
 
 DoubleKey.propTypes = {
 	data: PropTypes.shape({
@@ -128,13 +126,11 @@ DoubleKey.propTypes = {
 	})
 }
 
-const TextKey = ({data}) => {
-	return (
-		<div className={`key ${data.className} ${data.status}`}>
-			<span>{data.text}</span>
-		</div>
-	)
-}
+const TextKey = ({data}) => (
+	<div className={`key ${data.className} ${data.status}`}>
+		<span>{data.text}</span>
+	</div>
+)
 
 TextKey.propTypes = {
 	data: PropTypes.shape({
