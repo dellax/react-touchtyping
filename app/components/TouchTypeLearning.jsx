@@ -22,7 +22,7 @@ export default class TouchType extends React.Component {
 		this.keyInfo = {
 			pressedKey: '',
 			expectedKey: '',
-			nextKey: letterTextParts[0],
+			nextKey: letterTextParts[0].text,
 			shiftKeyPressed: this.shiftKeyPressed,
 			shiftLocation: this.shiftLocation
 		}

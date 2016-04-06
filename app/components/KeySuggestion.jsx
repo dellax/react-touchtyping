@@ -9,7 +9,10 @@ export default class KeySuggestion extends React.Component {
 			key.status = '';
 		}
 		this.keyMap = this.createKeyMap(this.keys);
-		this.highlightKeys();
+		let c = props.keyInfo.nextKey.toLowerCase();
+		let index = this.keyMap.get(c).index;
+		this.keys[index].status = 'correct-key';
+		this.highlightedKeysIndexes.push(index);
 	}
 
 	componentWillReceiveProps(props) {
@@ -46,6 +49,7 @@ export default class KeySuggestion extends React.Component {
 			shiftKeyPressed, 
 			shiftLocation
 		} = this.props.keyInfo;
+		console.log(nextKey);
 		console.log(shiftLocation);
 		console.log(shiftKeyPressed);
 		if (pressedKey === '') return;
@@ -71,6 +75,7 @@ export default class KeySuggestion extends React.Component {
 
 	render() {
 		const keys = this.keys;
+		console.log('renderujem');
 		return (
 			<div className="keysuggestion">
 				<div className="keyboard">
