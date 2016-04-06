@@ -57,7 +57,7 @@ export default class KeySuggestion extends React.Component {
 
 	highlightKey(key, status) {
 		// TODO add chech if ist letter, if yes, then to UPPERCASE
-		let c = key.toUpperCase();
+		let c = key.toLowerCase();
 		let index = this.keyMap.get(c).index;
 		this.keys[index].status = status;
 		this.highlightedKeysIndexes.push(index);
@@ -93,7 +93,7 @@ export default class KeySuggestion extends React.Component {
 }
 
 const DefaultKey = ({data}) => (
-	<div className={`key ${data.status}`}>{data.char}</div>
+	<div className={`key upperCase ${data.status}`}>{data.char}</div>
 )
 
 DefaultKey.propTypes = {
@@ -185,42 +185,42 @@ keyboardSettings.keys = [
 	{id: 13, type: 'textKey', text: 'backspace', className: 'key-delete'},
 	// second row
 	{id: 14, type: 'textKey', text: 'tab', className: 'key-tab key-special-l'},
-	{id: 15, type: 'defaultKey', char: 'Q'},
-	{id: 16, type: 'defaultKey', char: 'W'},
-	{id: 17, type: 'defaultKey', char: 'E'},
-	{id: 18, type: 'defaultKey', char: 'R'},
-	{id: 19, type: 'defaultKey', char: 'T'},
-	{id: 20, type: 'defaultKey', char: 'Y'},
-	{id: 21, type: 'defaultKey', char: 'U'},
-	{id: 22, type: 'defaultKey', char: 'I'},
-	{id: 23, type: 'defaultKey', char: 'O'},
-	{id: 24, type: 'defaultKey', char: 'P'},
+	{id: 15, type: 'defaultKey', char: 'q'},
+	{id: 16, type: 'defaultKey', char: 'w'},
+	{id: 17, type: 'defaultKey', char: 'e'},
+	{id: 18, type: 'defaultKey', char: 'r'},
+	{id: 19, type: 'defaultKey', char: 't'},
+	{id: 20, type: 'defaultKey', char: 'y'},
+	{id: 21, type: 'defaultKey', char: 'u'},
+	{id: 22, type: 'defaultKey', char: 'i'},
+	{id: 23, type: 'defaultKey', char: 'o'},
+	{id: 24, type: 'defaultKey', char: 'p'},
 	{id: 25, type: 'doubleKey', top: '/', bottom: 'ú'},
 	{id: 26, type: 'doubleKey', top: '(', bottom: 'ä'},
 	{id: 27, type: 'doubleKey', top: ')', bottom: 'ň'},
 	// third row
 	{id: 28, type: 'textKey', text: 'caps', className: 'key-caps key-special-l'},
-	{id: 29, type: 'defaultKey', char: 'A'},
-	{id: 30, type: 'defaultKey', char: 'S'},
-	{id: 31, type: 'defaultKey', char: 'D'},
-	{id: 32, type: 'defaultKey', char: 'F'},
-	{id: 33, type: 'defaultKey', char: 'G'},
-	{id: 34, type: 'defaultKey', char: 'H'},
-	{id: 35, type: 'defaultKey', char: 'J'},
-	{id: 36, type: 'defaultKey', char: 'K'},
-	{id: 37, type: 'defaultKey', char: 'L'},
+	{id: 29, type: 'defaultKey', char: 'a'},
+	{id: 30, type: 'defaultKey', char: 's'},
+	{id: 31, type: 'defaultKey', char: 'd'},
+	{id: 32, type: 'defaultKey', char: 'f'},
+	{id: 33, type: 'defaultKey', char: 'g'},
+	{id: 34, type: 'defaultKey', char: 'h'},
+	{id: 35, type: 'defaultKey', char: 'j'},
+	{id: 36, type: 'defaultKey', char: 'k'},
+	{id: 37, type: 'defaultKey', char: 'l'},
 	{id: 38, type: 'doubleKey', top: '"', bottom: 'ô'},
 	{id: 39, type: 'doubleKey', top: '!', bottom: '§'},
 	{id: 40, type: 'textKey', text: 'enter', className: 'key-return key-special-r'},
 	// fourth row
 	{id: 41, type: 'textKey', text: 'shift', className: 'key-shift-l key-special-l'},
-	{id: 42, type: 'defaultKey', char: 'Z'},
-	{id: 43, type: 'defaultKey', char: 'X'},
-	{id: 44, type: 'defaultKey', char: 'C'},
-	{id: 45, type: 'defaultKey', char: 'V'},
-	{id: 46, type: 'defaultKey', char: 'B'},
-	{id: 47, type: 'defaultKey', char: 'N'},
-	{id: 48, type: 'defaultKey', char: 'M'},
+	{id: 42, type: 'defaultKey', char: 'z'},
+	{id: 43, type: 'defaultKey', char: 'x'},
+	{id: 44, type: 'defaultKey', char: 'c'},
+	{id: 45, type: 'defaultKey', char: 'v'},
+	{id: 46, type: 'defaultKey', char: 'b'},
+	{id: 47, type: 'defaultKey', char: 'n'},
+	{id: 48, type: 'defaultKey', char: 'm'},
 	{id: 49, type: 'doubleKey', top: '?', bottom: ','},
 	{id: 50, type: 'doubleKey', top: ':', bottom: '.'},
 	{id: 51, type: 'doubleKey', top: '_', bottom: '-'},

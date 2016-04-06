@@ -290,7 +290,9 @@
   text-align: right;
 }
 
-
+.upperCase {
+  text-transform: uppercase;
+}
 
 .keyboard span {
   font-size: 90%;
