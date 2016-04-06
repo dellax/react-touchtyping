@@ -6,13 +6,13 @@ export default class KeySuggestion extends React.Component {
 		super(props);
 		this.keys = props.keyboardSettings.keys;
 		this.highlightedKeysIndexes = [];
-		for (let key of this.keys) {
+		this.keys.map((key) => {
 			key.status = '';
-		}
+		});
 		this.keyMap = this.createKeyMap(this.keys);
 		let c = props.keyInfo.nextKey.toLowerCase();
 		let index = this.keyMap.get(c).index;
-		this.keys[index].status = 'correct-key';
+		this.keys[index].status = 'next-key';
 		this.highlightedKeysIndexes.push(index);
 	}
 
@@ -24,7 +24,7 @@ export default class KeySuggestion extends React.Component {
 	createKeyMap(keys) {
 		let keyMap = new Map();
 		let index = 0;
-		for (let key of keys) {
+		keys.map((key) => {
 			switch(key.type) {
 				case 'doubleKey':
 					keyMap.set(key.top, {index, finger: fingerByIndex.get(index)});
@@ -37,7 +37,7 @@ export default class KeySuggestion extends React.Component {
 					keyMap.set(key.char, {index, finger: fingerByIndex.get(index)});
 			}
 			index++;
-		}
+		});
 		return keyMap;
 	}
 
@@ -54,14 +54,15 @@ export default class KeySuggestion extends React.Component {
 		console.log(shiftLocation);
 		console.log(shiftKeyPressed);
 		if (pressedKey === '') return;
-		this.highlightKey(nextKey, 'correct-key');
+		this.highlightKey(nextKey, 'next-key');
+		this.hightlightHands(nextKey);
 		if (pressedKey != expectedKey) {
 			this.highlightKey(pressedKey, 'incorrect-key');
 		}
 	}
 
 	highlightKey(key, status) {
-		// TODO add chech if ist letter, if yes, then to UPPERCASE
+		// TODO highlight shift
 		let c = key.toLowerCase();
 		let index = this.keyMap.get(c).index;
 		this.keys[index].status = status;
@@ -69,14 +70,20 @@ export default class KeySuggestion extends React.Component {
 	}
 
 	unHighlightKeys() {
-		for (let index of this.highlightedKeysIndexes) {
+		this.highlightedKeysIndexes.map((index) => {
 			this.keys[index].status = '';
-		}
+		});
+	}
+
+	hightlightHands(key) {
+		const LEFT_SHIFT_INDEX = 41;
+		const RIGHT_SHIFT_INDEX = 52;
+		// TODO 
+
 	}
 
 	render() {
 		const keys = this.keys;
-		console.log('renderujem');
 		return (
 			<div className="key-suggestion">
 				<LeftHand />
