@@ -86,7 +86,7 @@ export default class KeySuggestion extends React.Component {
 		const keys = this.keys;
 		return (
 			<div className="key-suggestion">
-				<LeftHand />
+				<LeftHand index={5} />
 				<div className="keyboard">
 					{keys.map((key) => {
 						switch(key.type) {
@@ -101,7 +101,7 @@ export default class KeySuggestion extends React.Component {
 						}
 					})}
 				</div>
-				<RightHand />
+				<RightHand index={4} />
 			</div>
 		)
 	}
