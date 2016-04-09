@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 
 export const RightHand = ({index}) => {
-	const i = index - 1;
+	const i = index;
 	const styles = [
+		{},
 		{top: '63px', left: '0px', visibility: 'visible'},
 		{top: '5px', left: '63px', visibility: 'visible'},
 		{top: '3px', left: '92px', visibility: 'visible'},
@@ -17,8 +18,9 @@ export const RightHand = ({index}) => {
 }
 
 export const LeftHand = ({index}) => {
-	const i = index - 1;
+	const i = index;
 	const styles = [
+		{},
 		{top: '40px', left: '0px', visibility: 'visible'},
 		{top: '22px', left: '15px', visibility: 'visible'},
 		{top: '3px', left: '35px', visibility: 'visible'},

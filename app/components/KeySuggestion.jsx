@@ -14,6 +14,7 @@ export default class KeySuggestion extends React.Component {
 		let index = this.keyMap.get(c).index;
 		this.keys[index].status = 'next-key';
 		this.highlightedKeysIndexes.push(index);
+		this.hands = {'l': 0, 'r': 0};
 	}
 
 	componentWillReceiveProps(props) {
@@ -42,7 +43,8 @@ export default class KeySuggestion extends React.Component {
 	}
 
 	highlightKeys() {
-		// TODO
+		const LEFT_SHIFT_INDEX = 41;
+		const RIGHT_SHIFT_INDEX = 52;
 		const {
 			pressedKey, 
 			expectedKey, 
@@ -50,23 +52,30 @@ export default class KeySuggestion extends React.Component {
 			shiftKeyPressed, 
 			shiftLocation
 		} = this.props.keyInfo;
-		console.log(nextKey);
-		console.log(shiftLocation);
-		console.log(shiftKeyPressed);
 		if (pressedKey === '') return;
 		this.highlightKey(nextKey, 'next-key');
-		this.hightlightHands(nextKey);
+		this.hightlightHands(nextKey, shiftKeyPressed, shiftLocation);
 		if (pressedKey != expectedKey) {
 			this.highlightKey(pressedKey, 'incorrect-key');
+			if (shiftKeyPressed) {
+				if (shiftLocation == 1) {
+					this.highlightKeyWithIndex(LEFT_SHIFT_INDEX, 'incorrect-key');
+				} else {
+					this.highlightKeyWithIndex(RIGHT_SHIFT_INDEX, 'incorrect-key');
+				}
+			}
 		}
 	}
 
 	highlightKey(key, status) {
-		// TODO highlight shift
 		let c = key.toLowerCase();
 		let index = this.keyMap.get(c).index;
-		this.keys[index].status = status;
-		this.highlightedKeysIndexes.push(index);
+		this.highlightKeyWithIndex(index, status);
+	}
+
+	highlightKeyWithIndex(i, status) {
+		this.keys[i].status = status;
+		this.highlightedKeysIndexes.push(i);
 	}
 
 	unHighlightKeys() {
@@ -75,18 +84,32 @@ export default class KeySuggestion extends React.Component {
 		});
 	}
 
-	hightlightHands(key) {
-		const LEFT_SHIFT_INDEX = 41;
-		const RIGHT_SHIFT_INDEX = 52;
-		// TODO 
+	hightlightHands(key, shiftKeyPressed, shiftLocation) {
+		this.hands = {'l': 0, 'r': 0};
+		// TODO check if is uppercase !!!
+		const char = key.toLowerCase();
+		const charIndex = this.keyMap.get(char).index;
+		const handAndFinger = fingerByIndex.get(charIndex);
 
+		const hand = handAndFinger.charAt(0);
+		const fingerIndex = parseInt(handAndFinger.charAt(2));
+		if (shiftKeyPressed) {
+			if (hand === 'l') {
+				this.hands['r'] = 1;
+			} else {
+				this.hands['l'] = 5;
+			}
+		}
+		this.hands[hand] = fingerIndex;
+		console.log(this.hands);
 	}
 
 	render() {
 		const keys = this.keys;
+
 		return (
 			<div className="key-suggestion">
-				<LeftHand index={5} />
+				<LeftHand index={this.hands['l']} />
 				<div className="keyboard">
 					{keys.map((key) => {
 						switch(key.type) {
@@ -101,7 +124,7 @@ export default class KeySuggestion extends React.Component {
 						}
 					})}
 				</div>
-				<RightHand index={4} />
+				<RightHand index={this.hands['r']} />
 			</div>
 		)
 	}
