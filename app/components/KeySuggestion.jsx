@@ -13,11 +13,7 @@ export default class KeySuggestion extends React.Component {
 			key.status = '';
 		});
 		this.keyMap = this.createKeyMap(this.keys);
-		let c = props.keyInfo.nextKey.toLowerCase();
-		let index = this.keyMap.get(c).index;
-		this.keys[index].status = 'next-key';
-		this.highlightedKeysIndexes.push(index);
-		this.hands = {'l': 0, 'r': 0};
+		this.highlightKeys();
 	}
 
 	componentWillReceiveProps(props) {
@@ -54,7 +50,6 @@ export default class KeySuggestion extends React.Component {
 			shiftKeyPressed, 
 			shiftLocation
 		} = this.props.keyInfo;
-		if (pressedKey === '') return;
 		this.highlightNextKey(nextKey, 'next-key');
 		
 		if (pressedKey != expectedKey) {
