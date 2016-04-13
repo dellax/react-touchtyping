@@ -8,15 +8,16 @@
 .tt-app {
 	width: 900px;
 	font-family: 'Roboto';
+  margin: 0 auto;
 }
 
 .tt-app-main {
-	width: 610px;
+	width: 710px;
 	margin: auto;
 }
 
 .tt-input-text, .tt-input-text-learning {
-	width: 600px;
+	width: 700px;
 	font-family: "Courier New", Courier, monospace;
 	font-size: 24px;
 	border: 1px dashed;
@@ -27,7 +28,7 @@
 .tt-app input {
 	margin-top: 5px;
 	font-family: "Courier New", Courier, monospace;
-	width: 610px;
+	width: 710px;
 	font-size: 24px;
   border: 1px dashed #000000; 
   outline:0;
@@ -36,7 +37,7 @@
 .tt-app textarea {
   margin-top: 5px;
   font-family: "Courier New", Courier, monospace;
-  width: 605px;
+  width: 705px;
   font-size: 24px;
   border: 1px dashed #000000; 
   outline:0; 
@@ -61,7 +62,7 @@
 
 /* ===PROGRESS-BAR=== */
 .progress {
-	width: 610px;
+	width: 710px;
 	margin-top: 5px;
   font-size: 1.2em;
   font-family: 'Roboto';
