@@ -8,6 +8,7 @@ export default class Stats extends React.Component {
 	}
 
 	tick() {
+		console.log(this.props.stats.incorrectLetters);
 		let {secondsElapsed, wpm, highestWpm} = this.state;
 		wpm = this.countWpm();
 		if (wpm > highestWpm) {
@@ -23,6 +24,10 @@ export default class Stats extends React.Component {
 		if (secondsElapsed === 0) return 0;
 		let wpm = Math.round(correctWordsCount / (secondsElapsed / 60.0));
 		return wpm;
+	}
+
+	countCpm() {
+		// TODO
 	}
 
 	runTimer() {

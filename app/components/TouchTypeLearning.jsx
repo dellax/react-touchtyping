@@ -8,6 +8,7 @@ export default class TouchType extends React.Component {
 		super(props);
 		this.currentLetterIndex = 0;
 		this.currentWordIndex = 0;
+		this.isIncorrectWord = false;
 		this.shiftKeyPressed = false;
 		this.shiftLocation = 0;
 		this.userInput = '';
@@ -16,11 +17,13 @@ export default class TouchType extends React.Component {
 			runTimer: false,
 			lettersTyped: 0,
 			wordsTyped: 0,
-			incorrectWords: []
+			incorrectWords: [],
+			incorrectLetters: []
 		};
-		const letterTextParts = this.createInitialParts(props.text);
+		this.wordsSplitted = props.text.split(' ');
 		this.newLineIndexes = this.createNewLineIndexes(props.text, props.maxCharsPerLine);
 		this.currentLineIndex = 0;
+		const letterTextParts = this.createInitialParts(props.text);
 		this.keyInfo = {
 			pressedKey: '',
 			expectedKey: '',
@@ -71,13 +74,18 @@ export default class TouchType extends React.Component {
 
 	handleChange(e) {
 		let {letterTextParts, input} = this.state;
-		let {runTimer, lettersTyped, wordsTyped, incorrectWords} = this.stats;
+		let {
+			runTimer, 
+			lettersTyped, 
+			wordsTyped, 
+			incorrectWords, 
+			incorrectLetters} = this.stats;
 		let i = this.currentLetterIndex;
 		runTimer = true;
 		input = e.target.value;
-		// TODO add mistakes and refactor
 		this.keyInfo.shiftKeyPressed = this.shiftKeyPressed;
 		this.keyInfo.shiftLocation = this.shiftLocation;
+		
 		if (i < letterTextParts.length) {
 			let part = input.charAt(input.length-1);
 			this.keyInfo.expectedKey = letterTextParts[i].text;
@@ -90,6 +98,10 @@ export default class TouchType extends React.Component {
 						this.currentLineIndex++;
 						this.userInput = '';
 					}
+					if (this.isIncorrectWord) {
+						incorrectWords.push(this.wordsSplitted[this.currentWordIndex]);
+					}
+					this.isIncorrectWord = false;
 					this.currentWordIndex++;
 				}
 				letterTextParts[i].className = "correct";
@@ -107,7 +119,11 @@ export default class TouchType extends React.Component {
 					this.lastIncorrectLetterIndex = -1;
 				}
 			} else {
+				// to prevent adding incorrect letter more time
+				if (this.lastIncorrectLetterIndex != i) 
+					incorrectLetters.push(letterTextParts[i].text);
 				this.lastIncorrectLetterIndex = i;
+				this.isIncorrectWord = true;
 			}
 		} else {
 			// TODO show graphs and stats, save to DB
@@ -119,7 +135,8 @@ export default class TouchType extends React.Component {
 			runTimer, 
 			lettersTyped: i, 
 			wordsTyped: this.currentWordIndex, 
-			incorrectWords
+			incorrectWords,
+			incorrectLetters
 		};
 		this.setState({letterTextParts, input: this.userInput});
 	}
