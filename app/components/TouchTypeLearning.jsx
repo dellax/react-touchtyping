@@ -19,7 +19,7 @@ export default class TouchType extends React.Component {
 			incorrectWords: []
 		};
 		const letterTextParts = this.createInitialParts(props.text);
-		this.newLineIndexes = this.createNewLineIndexes(props.text);
+		this.newLineIndexes = this.createNewLineIndexes(props.text, props.maxCharsPerLine);
 		this.currentLineIndex = 0;
 		this.keyInfo = {
 			pressedKey: '',
@@ -46,13 +46,14 @@ export default class TouchType extends React.Component {
 		return parts;
 	}
 
-	createNewLineIndexes(text) {
+	createNewLineIndexes(text, maxCharsPerLine) {
+		// TODO add lines count?
 		let textSplitted = text.split(' ');
 		let currentIndex = 0;
 		let currentLineLength = 0;
 		let res = [0];
 		for (let i = 0; i < textSplitted.length-1; i++) {
-			if (currentLineLength + textSplitted[i+1].length >= 48) {
+			if (currentLineLength + textSplitted[i+1].length >= maxCharsPerLine) {
 				currentIndex += currentLineLength;
 				currentLineLength = 0;
 				res.push(currentIndex);
@@ -108,6 +109,9 @@ export default class TouchType extends React.Component {
 			} else {
 				this.lastIncorrectLetterIndex = i;
 			}
+		} else {
+			// TODO show graphs and stats, save to DB
+			console.log('end');
 		}
 
 		this.currentLetterIndex = i;
@@ -151,5 +155,10 @@ export default class TouchType extends React.Component {
 }
 
 TouchType.propTypes = {
-	text: PropTypes.string.isRequired
+	text: PropTypes.string.isRequired,
+	maxCharsPerLine: PropTypes.number
 };
+
+TouchType.defaultProps = {
+	maxCharsPerLine: 48
+}

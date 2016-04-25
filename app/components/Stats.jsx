@@ -4,12 +4,16 @@ export default class Stats extends React.Component {
 	constructor(props) {
 		super(props);
 		this.timerRunning = false;
-		this.state = {secondsElapsed: 0, wpm: 0};
+		this.state = {secondsElapsed: 0, wpm: 0, highestWpm: 0};
 	}
 
 	tick() {
-		let wpm = this.countWpm();
-		this.setState({secondsElapsed: this.state.secondsElapsed + 1, wpm});
+		let {secondsElapsed, wpm, highestWpm} = this.state;
+		wpm = this.countWpm();
+		if (wpm > highestWpm) {
+			highestWpm = wpm;
+		}
+		this.setState({secondsElapsed: secondsElapsed + 1, wpm, highestWpm});
 	}
 
 	countWpm() {
@@ -40,9 +44,9 @@ export default class Stats extends React.Component {
 		} else if (!this.props.stats.runTimer && this.timerRunning) {
 			this.stopTimer();
 		}
-		const {secondsElapsed, wpm} = this.state;
+		const {secondsElapsed, wpm, highestWpm} = this.state;
 		return (
-			<div>Stats: time: {secondsElapsed}, WPM: {wpm}</div>
+			<div className="touchtyping-stats">Time: {secondsElapsed}, WPM: {wpm}, Highest WPM: {highestWpm}</div>
 		)
 	}
 }

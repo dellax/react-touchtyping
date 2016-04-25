@@ -395,3 +395,10 @@
   background: green;
   z-index: 100;
 }
+
+/* ===STATS=== */
+.touchtyping-stats {
+  border: 1px dashed black;
+  margin-bottom: 5px;
+  padding: 5px;
+}
