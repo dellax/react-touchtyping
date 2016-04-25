@@ -402,3 +402,9 @@
   margin-bottom: 5px;
   padding: 5px;
 }
+
+/* ===GRAPH=== */
+.graf-test {
+  width: 400px;
+  height: 400px;
+}
