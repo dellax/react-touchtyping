@@ -19,6 +19,8 @@ export default class TouchType extends React.Component {
 			incorrectWords: []
 		};
 		const letterTextParts = this.createInitialParts(props.text);
+		this.newLineIndexes = this.createNewLineIndexes(props.text);
+		this.currentLineIndex = 0;
 		this.keyInfo = {
 			pressedKey: '',
 			expectedKey: '',
@@ -44,6 +46,22 @@ export default class TouchType extends React.Component {
 		return parts;
 	}
 
+	createNewLineIndexes(text) {
+		let textSplitted = text.split(' ');
+		let currentIndex = 0;
+		let currentLineLength = 0;
+		let res = [0];
+		for (let i = 0; i < textSplitted.length-1; i++) {
+			if (currentLineLength + textSplitted[i+1].length >= 48) {
+				currentIndex += currentLineLength;
+				currentLineLength = 0;
+				res.push(currentIndex);
+			}
+			currentLineLength += textSplitted[i].length + 1; // space
+		}
+		return res;
+	}
+
 	handleOnKeyUp(e) {
 		const SHIFT_KEY = 16;
 		if (e.keyCode === SHIFT_KEY) this.shiftLocation = e.location;
@@ -64,8 +82,15 @@ export default class TouchType extends React.Component {
 			this.keyInfo.expectedKey = letterTextParts[i].text;
 			this.keyInfo.pressedKey = part;
 			if (part === letterTextParts[i].text) {
-				if (part === ' ') this.currentWordIndex++;
 				this.userInput += part;
+				if (part === ' ') { // new word
+					// check for new line
+					if (i === this.newLineIndexes[this.currentLineIndex+1]-1) {
+						this.currentLineIndex++;
+						this.userInput = '';
+					}
+					this.currentWordIndex++;
+				}
 				letterTextParts[i].className = "correct";
 				if (i + 1 < letterTextParts.length) {
 					letterTextParts[i + 1].className = "current";
@@ -98,12 +123,16 @@ export default class TouchType extends React.Component {
 	render() {
 		const {letterTextParts, input} = this.state;
 		const completed = 100 / letterTextParts.length * this.currentLetterIndex;
+
+		const fromIndex = this.newLineIndexes[this.currentLineIndex];
+		const toIndex = this.newLineIndexes[this.currentLineIndex+1];
+
 		return (
 			<div className="tt-app">
 				<div className="tt-app-main">
 					<Stats stats={this.stats}/>
 					<div className="tt-input-text-learning">
-						{letterTextParts.map((part) => {
+						{letterTextParts.slice(fromIndex, toIndex).map((part) => {
 							return <span className={part.className} key={part.id}>{part.text}</span>
 						})}
 					</div>
