@@ -15,7 +15,7 @@ let text2 = 'aa ll kk dd jj ';
 
 const App = () => (
 	<div id="page-wrap">
-		<TouchTypeLearning text={text2} />
+		<TouchType text={text} />
 	</div>	
 )
 

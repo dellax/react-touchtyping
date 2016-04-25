@@ -68,7 +68,7 @@ export default class TouchType extends React.Component {
 					<Stats stats={this.stats}/>
 					<div className="tt-input-text">
 						{parts.map((part) => {
-							return <span className={part.className} key={part.id}>{`${part.text} `}</span>
+							return <span key={part.id}><span className={part.className}>{`${part.text}`}</span> </span>
 						})}
 					</div>
 					<ProgressBar completed={completed} />
@@ -77,7 +77,6 @@ export default class TouchType extends React.Component {
 						value={input}
 						onChange={this.handleChange.bind(this)}
 					/>
-					<KeySuggestion pressedKey={'k'} />
 				</div>
 			</div>
 		)
