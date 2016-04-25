@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Stats from './Stats';
+import StatsBar from './StatsBar';
 import ProgressBar from './ProgressBar';
 import KeySuggestion from './KeySuggestion';
 
@@ -85,7 +85,7 @@ export default class TouchType extends React.Component {
 		input = e.target.value;
 		this.keyInfo.shiftKeyPressed = this.shiftKeyPressed;
 		this.keyInfo.shiftLocation = this.shiftLocation;
-		
+
 		if (i < letterTextParts.length) {
 			let part = input.charAt(input.length-1);
 			this.keyInfo.expectedKey = letterTextParts[i].text;
@@ -151,7 +151,7 @@ export default class TouchType extends React.Component {
 		return (
 			<div className="tt-app">
 				<div className="tt-app-main">
-					<Stats stats={this.stats}/>
+					<StatsBar stats={this.stats}/>
 					<div className="tt-input-text-learning">
 						{letterTextParts.slice(fromIndex, toIndex).map((part) => {
 							return <span className={part.className} key={part.id}>{part.text}</span>

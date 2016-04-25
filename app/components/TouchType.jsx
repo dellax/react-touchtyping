@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Stats from './Stats';
+import StatsBar from './StatsBar';
 import ProgressBar from './ProgressBar';
 import KeySuggestion from './KeySuggestion';
 
@@ -65,7 +65,7 @@ export default class TouchType extends React.Component {
 		return (
 			<div className="tt-app">
 				<div className="tt-app-main">
-					<Stats stats={this.stats}/>
+					<StatsBar stats={this.stats}/>
 					<div className="tt-input-text">
 						{parts.map((part) => {
 							return <span key={part.id}><span className={part.className}>{`${part.text}`}</span> </span>
