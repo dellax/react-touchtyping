@@ -9,7 +9,7 @@ export default class Statistics extends React.Component {
 	}
 
 	componentDidMount() {
-		let canvas = ReactDOM.findDOMNode(this.refs.graph);
+		let canvas = ReactDOM.findDOMNode(this.refs.chart1);
     let ctx = canvas.getContext('2d');
 
 
@@ -32,12 +32,43 @@ export default class Statistics extends React.Component {
 		        }
 		    }
 		});
+
+
+
+		let canvas2 = ReactDOM.findDOMNode(this.refs.chart2);
+  	let ctx2 = canvas2.getContext('2d');
+  	var data = {
+		    labels: [
+	        "Correct words",
+	        "Incorrect words",
+		    ],
+		    datasets: [
+	        {
+            data: [300, 50],
+            backgroundColor: [
+            	"#36A2EB",
+              "#FF6384"
+            ],
+            hoverBackgroundColor: [
+              "#36A2EB",
+              "#FF6384"
+            ]
+	        }
+	      ]
+		};
+		var myDoughnutChart = new Chart(ctx2, {
+		    type: 'doughnut',
+		    data: data
+		});
 	}
+
+	
 
 	render() {
 		return (
 			<div className="graf-test">
-				<canvas  ref="graph"/>
+				<canvas ref="chart1"/>
+				<canvas ref="chart2"/>
 			</div>
 		)
 	}

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import StatsBar from './StatsBar';
 import ProgressBar from './ProgressBar';
 import KeySuggestion from './KeySuggestion';
+import Statistics from './Statistics';
 
 export default class TouchType extends React.Component {
 	constructor(props) {
@@ -31,7 +32,7 @@ export default class TouchType extends React.Component {
 			shiftKeyPressed: this.shiftKeyPressed,
 			shiftLocation: this.shiftLocation
 		}
-		this.state = {letterTextParts, input: ''};
+		this.state = {letterTextParts, input: '', typingFinished: false};
 	}
 
 	createInitialParts(text) {
@@ -73,7 +74,7 @@ export default class TouchType extends React.Component {
 	}
 
 	handleChange(e) {
-		let {letterTextParts, input} = this.state;
+		let {letterTextParts, input, typingFinished} = this.state;
 		let {
 			runTimer, 
 			lettersTyped, 
@@ -109,6 +110,7 @@ export default class TouchType extends React.Component {
 					letterTextParts[i + 1].className = "current";
 					this.keyInfo.nextKey = letterTextParts[i + 1].text;
 				} else {
+					typingFinished = true;
 					runTimer = false;
 					this.keyInfo.pressedKey = '';
 				}
@@ -126,8 +128,8 @@ export default class TouchType extends React.Component {
 				this.isIncorrectWord = true;
 			}
 		} else {
-			// TODO show graphs and stats, save to DB
-			console.log('end');
+			
+			
 		}
 
 		this.currentLetterIndex = i;
@@ -138,11 +140,11 @@ export default class TouchType extends React.Component {
 			incorrectWords,
 			incorrectLetters
 		};
-		this.setState({letterTextParts, input: this.userInput});
+		this.setState({letterTextParts, input: this.userInput, typingFinished});
 	}
 
-	render() {
-		const {letterTextParts, input} = this.state;
+	renderTypingApp() {
+		const {letterTextParts, input, typingFinished} = this.state;
 		const completed = 100 / letterTextParts.length * this.currentLetterIndex;
 
 		const fromIndex = this.newLineIndexes[this.currentLineIndex];
@@ -168,6 +170,16 @@ export default class TouchType extends React.Component {
 				<KeySuggestion keyInfo={this.keyInfo} />
 			</div>
 		)
+	}
+
+	render() {
+		if (this.state.typingFinished === false) {
+			return this.renderTypingApp();
+		} else {
+			// TODO add params to statistics
+			// add some effect ...
+			return <Statistics />
+		}
 	}
 }
 

@@ -59,7 +59,13 @@ export default class TouchType extends React.Component {
 		this.setState({parts, input});
 	}
 
-	render() {
+	renderStatistics() {
+		return (
+			<div> </div>
+		)
+	}
+
+	renderTypingApp() {
 		const {parts, input} = this.state;
 		const completed = 100 / parts.length * this.index;
 		return (
@@ -80,6 +86,10 @@ export default class TouchType extends React.Component {
 				</div>
 			</div>
 		)
+	}
+
+	render() {
+		return this.renderTypingApp();
 	}
 }
 

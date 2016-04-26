@@ -10,7 +10,7 @@ export default class Stats extends React.Component {
 	tick() {
 		let {secondsElapsed, wpm, highestWpm} = this.state;
 		wpm = this.countWpm();
-		if (wpm > highestWpm) {
+		if (wpm > highestWpm && secondsElapsed > 5) {
 			highestWpm = wpm;
 		}
 		this.setState({secondsElapsed: secondsElapsed + 1, wpm, highestWpm});
