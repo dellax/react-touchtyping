@@ -178,7 +178,7 @@ export default class TouchType extends React.Component {
 		} else {
 			// TODO add params to statistics
 			// add some effect ...
-			return <Statistics />
+			return <Statistics stats={this.stats} />
 		}
 	}
 }

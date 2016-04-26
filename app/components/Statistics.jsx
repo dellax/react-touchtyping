@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 export default class Statistics extends React.Component {
 	constructor(props) {
 		super(props);
-		
+		this.stats = props.stats;
 	}
 
 	componentDidMount() {
@@ -37,6 +37,8 @@ export default class Statistics extends React.Component {
 
 		let canvas2 = ReactDOM.findDOMNode(this.refs.chart2);
   	let ctx2 = canvas2.getContext('2d');
+  	let incorrectWordsCount = this.stats.incorrectWords.length;
+  	let correctWordsCount = this.stats.wordsTyped - incorrectWordsCount;
   	var data = {
 		    labels: [
 	        "Correct words",
@@ -44,7 +46,7 @@ export default class Statistics extends React.Component {
 		    ],
 		    datasets: [
 	        {
-            data: [300, 50],
+            data: [correctWordsCount, incorrectWordsCount],
             backgroundColor: [
             	"#36A2EB",
               "#FF6384"

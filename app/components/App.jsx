@@ -4,9 +4,7 @@ import TouchType from './TouchType.jsx';
 
 let text = `What suffering will have to be endured before 
 the workers realize that? It was from a man in Arizona. What 
-suffering will have to be endured. What suffering will have 
-to be endured before the workers realize that? It was from 
-a man in Arizona. What suffering will have to be endured.`.replace(/(\n)+/g, '');
+suffering will have to be endured.`.replace(/(\n)+/g, '');
 
 let textLearning = `aaaa bbcc eeee ffff jjjj kkkk
 mmmm pppp`.replace(/(\n)+/g, '');
