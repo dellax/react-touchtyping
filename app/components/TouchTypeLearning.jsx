@@ -14,12 +14,16 @@ export default class TouchType extends React.Component {
 		this.shiftLocation = 0;
 		this.userInput = '';
 		this.lastIncorrectLetterIndex = -1;
+		this.timerRunning = false;
 		this.stats = {
-			runTimer: false,
+			secondsElapsed: 0,
 			lettersTyped: 0,
 			wordsTyped: 0,
 			incorrectWords: [],
-			incorrectLetters: []
+			incorrectLetters: [],
+			currentWpm: 0,
+			highestWpm: 0,
+			wpmList: []
 		};
 		this.wordsSplitted = props.text.split(' ');
 		this.newLineIndexes = this.createNewLineIndexes(props.text, props.maxCharsPerLine);
@@ -76,13 +80,20 @@ export default class TouchType extends React.Component {
 	handleChange(e) {
 		let {letterTextParts, input, typingFinished} = this.state;
 		let {
-			runTimer, 
-			lettersTyped, 
-			wordsTyped, 
-			incorrectWords, 
-			incorrectLetters} = this.stats;
+			secondsElapsed,
+			lettersTyped,
+			wordsTyped,
+			incorrectWords,
+			incorrectLetters,
+			currentWpm,
+			highestWpm,
+			wpmList
+		} = this.stats;
 		let i = this.currentLetterIndex;
-		runTimer = true;
+		if (!this.timerRunning) {
+			this.runTimer();
+			this.timerRunning = true;
+		}
 		input = e.target.value;
 		this.keyInfo.shiftKeyPressed = this.shiftKeyPressed;
 		this.keyInfo.shiftLocation = this.shiftLocation;
@@ -111,7 +122,7 @@ export default class TouchType extends React.Component {
 					this.keyInfo.nextKey = letterTextParts[i + 1].text;
 				} else {
 					typingFinished = true;
-					runTimer = false;
+					this.stopTimer();
 					this.keyInfo.pressedKey = '';
 				}
 				i++;
@@ -134,13 +145,63 @@ export default class TouchType extends React.Component {
 
 		this.currentLetterIndex = i;
 		this.stats = {
-			runTimer, 
+			secondsElapsed, 
 			lettersTyped: i, 
 			wordsTyped: this.currentWordIndex, 
 			incorrectWords,
-			incorrectLetters
+			incorrectLetters,
+			currentWpm,
+			highestWpm,
+			wpmList
 		};
 		this.setState({letterTextParts, input: this.userInput, typingFinished});
+	}
+
+	tick() {
+		let {
+			secondsElapsed,
+			lettersTyped,
+			wordsTyped,
+			incorrectWords,
+			incorrectLetters,
+			currentWpm,
+			highestWpm,
+			wpmList
+		} = this.stats;
+		let incorrectWordsCount = incorrectWords.length;
+		let correctWordsCount = wordsTyped - incorrectWordsCount;
+
+		currentWpm = this.countWpm(incorrectWordsCount, correctWordsCount, secondsElapsed);
+		// for better results, count wpm after 5 seconds
+		if (currentWpm > highestWpm && secondsElapsed > 4)
+			highestWpm = currentWpm;
+		// add wpm every 3 seconds
+		if (secondsElapsed % 3 === 0) wpmList.push(currentWpm);
+		secondsElapsed++;
+
+		this.stats = {
+			secondsElapsed, 
+			lettersTyped, 
+			wordsTyped, 
+			incorrectWords,
+			incorrectLetters,
+			currentWpm,
+			highestWpm,
+			wpmList
+		};
+	}
+
+	runTimer() {
+		this.timer = setInterval(this.tick.bind(this), 1000);
+	}
+
+	stopTimer() {
+		clearInterval(this.timer);
+	}
+
+	countWpm(incorrectWordsCount, correctWordsCount, secondsElapsed) {
+		if (secondsElapsed === 0) return 0;
+		return Math.round(correctWordsCount / (secondsElapsed / 60.0));
 	}
 
 	renderTypingApp() {
@@ -178,6 +239,7 @@ export default class TouchType extends React.Component {
 		} else {
 			// TODO add params to statistics
 			// add some effect ...
+			console.log(this.stats.wpmList);
 			return <Statistics stats={this.stats} />
 		}
 	}
