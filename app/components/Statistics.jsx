@@ -1,6 +1,8 @@
 import React from 'react';
 import Chart from 'chart.js';
 import ReactDOM from 'react-dom';
+var ProgressBar = require('progressbar.js');
+
 
 export default class Statistics extends React.Component {
 	constructor(props) {
@@ -13,10 +15,10 @@ export default class Statistics extends React.Component {
 	}
 
 	componentDidMount() {
-		let canvas = ReactDOM.findDOMNode(this.refs.chart1);
+		let canvas = ReactDOM.findDOMNode(this.refs.wpmChart);
     let ctx = canvas.getContext('2d');
 
-    let data1 = {
+    let wpmChartData = {
 	    labels: this.labels,
 	    datasets: [
 	      {
@@ -90,7 +92,7 @@ export default class Statistics extends React.Component {
 
 		let wpmChart = new Chart(ctx, {
 		  type: 'line',
-		  data: data1,
+		  data: wpmChartData,
 		  options: {
 	      xAxes: [{
           display: false
@@ -100,11 +102,11 @@ export default class Statistics extends React.Component {
 
 
 
-		let canvas2 = ReactDOM.findDOMNode(this.refs.chart2);
+		let canvas2 = ReactDOM.findDOMNode(this.refs.correctIncorrectChart);
   	let ctx2 = canvas2.getContext('2d');
   	let incorrectWordsCount = this.stats.incorrectWords.length;
   	let correctWordsCount = this.stats.wordsTyped - incorrectWordsCount;
-  	let data = {
+  	let correctIncorrectChartData = {
 		    labels: [
 	        "Correct words",
 	        "Incorrect words",
@@ -123,10 +125,40 @@ export default class Statistics extends React.Component {
 	        }
 	      ]
 		};
-		let myDoughnutChart = new Chart(ctx2, {
+		let correctIncorrectChart = new Chart(ctx2, {
 		    type: 'doughnut',
-		    data: data
+		    data: correctIncorrectChartData
 		});
+
+    let container = ReactDOM.findDOMNode(this.refs.bar);
+    var bar = new ProgressBar.Circle(container, {
+      color: '#aaa',
+      // This has to be the same size as the maximum width to
+      // prevent clipping
+      strokeWidth: 4,
+      trailWidth: 1,
+      easing: 'easeInOut',
+      duration: 1400,
+      text: {
+        autoStyleContainer: false
+      },
+      from: { color: '#FF0000', width: 1 },
+      to: { color: '#15ff00', width: 4 },
+      // Set default step function for all animate calls
+      step: function(state, circle) {
+        circle.path.setAttribute('stroke', state.color);
+        circle.path.setAttribute('stroke-width', state.width);
+
+        var value = Math.round(circle.value() * 100);
+        if (value === 0) {
+          circle.setText('');
+        } else {
+          circle.setText(value);
+        }
+
+      }
+    });
+    bar.animate(0.8);  // Number from 0.0 to 1.0
 	}
 
 	
@@ -134,8 +166,9 @@ export default class Statistics extends React.Component {
 	render() {
 		return (
 			<div className="graf-test">
-				<canvas ref="chart1"/>
-				<canvas ref="chart2"/>
+				<canvas ref="wpmChart"/>
+				<canvas ref="correctIncorrectChart"/>
+        <div id="container" ref="bar"></div>
 			</div>
 		)
 	}
