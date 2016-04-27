@@ -8,7 +8,7 @@ export default class Statistics extends React.Component {
 		this.stats = props.stats;
 		this.labels = [];
 		for (let i = 0; i < this.stats.wpmList.length; i++) {
-			this.labels.push(String(i*3));
+			this.labels.push(' ');
 		}
 	}
 
@@ -93,7 +93,7 @@ export default class Statistics extends React.Component {
 		  data: data1,
 		  options: {
 	      xAxes: [{
-          display: true
+          display: false
 	      }]
 		  }
 		});
