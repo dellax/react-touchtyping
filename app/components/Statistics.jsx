@@ -126,7 +126,7 @@ export default class Statistics extends React.Component {
 	      ]
 		};
 		let correctIncorrectChart = new Chart(ctx2, {
-		    type: 'doughnut',
+		    type: 'pie',
 		    data: correctIncorrectChartData
 		});
 
