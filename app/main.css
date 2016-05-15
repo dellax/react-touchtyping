@@ -417,6 +417,16 @@
   position: relative;
 }
 
+
+
+/* ===TOUCHTYPE GAMING=== */
+.countdown {
+  position: absolute;
+  z-index: 200;
+  top: 100px;
+  left: 300px;
+}
+
 /* ===GAME=== */
 .game-cars {
   width: 600px;

@@ -4,7 +4,7 @@ import TouchTypeGaming from './TouchTypeGaming.jsx';
 import TouchType from './TouchType.jsx';
 import Statistics from './Statistics.jsx';
 import Game from './Game.jsx';
-import TrafficLightCountdown from './TrafficLightCountdown.jsx';
+
 
 let text = `What suffering will have to be endured before 
 the workers realize that? It was from a man in Arizona. What 
@@ -26,10 +26,35 @@ let stats = {
 	wpmList: [0, 100, 110, 105, 80, 90]
 }
 
-const App = () => (
-	<div id="page-wrap">
-		<TrafficLightCountdown text={text} onComplete={console.log('lol')} />
-	</div>	
-)
+class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {timer: 8};
+		this.runTimer();
+	}
+
+	tick() {
+		this.setState({timer: this.state.timer -= 1});
+		if (this.state.timer === 0) this.stopTimer();
+	}
+
+	runTimer() {
+		this.timer = setInterval(this.tick.bind(this), 1000);
+	}
+
+	stopTimer() {
+		clearInterval(this.timer);
+	}
+
+	render() {
+		const completed = this.state.timer;
+		
+		return (
+			<div id="page-wrap">
+				<TouchTypeGaming text={text} countdown={completed} />
+			</div>	
+		)
+	}
+}
 
 export default App;

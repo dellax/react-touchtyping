@@ -3,6 +3,7 @@ import StatsBar from './StatsBar';
 import ProgressBar from './ProgressBar';
 import KeySuggestion from './KeySuggestion';
 import Game from './Game.jsx';
+import TrafficLightCountdown from './TrafficLightCountdown.jsx';
 
 export default class TouchType extends React.Component {
 	constructor(props) {
@@ -22,11 +23,23 @@ export default class TouchType extends React.Component {
 		};
 		const parts = this.createInitialParts(props.text);
 		const inputStyles = {};
-		this.state = {parts, input: '', inputStyles};
+		const typingDisabled = true;
+		this.state = {parts, input: '', inputStyles, typingDisabled};
 	}
 
-	componentDidMount() {
-		// countdown and focus to input after
+	componentWillReceiveProps(props) {
+		if (props.countdown === 0) this.startGame();
+	}
+
+	componentDidUpdate() {
+		this.refs.typingInput.focus();
+	}
+
+	startGame() {
+		let {parts, input, inputStyles, typingDisabled} = this.state;
+		this.setState({
+			parts, input, inputStyles, typingDisabled: false
+		});
 		this.refs.typingInput.focus();
 	}
 
@@ -160,10 +173,14 @@ export default class TouchType extends React.Component {
 	}
 
 	renderTypingApp() {
-		const {parts, input, inputStyles} = this.state;
+		const {parts, input, inputStyles, typingDisabled} = this.state;
 		const completed = 100 / parts.length * this.index;
+
 		return (
-			<div className="tt-app">   
+			<div className="tt-app">
+				<div className="countdown">
+					<TrafficLightCountdown countdown={this.props.countdown} />
+				</div>
 				<Game completed={completed} />
 				<div className="tt-app-main">
 					<StatsBar stats={this.stats} />
@@ -178,7 +195,7 @@ export default class TouchType extends React.Component {
 						ref="typingInput"
 						value={input}
 						style={inputStyles}
-						disabled={true}
+						disabled={typingDisabled}
 						onChange={this.handleChange.bind(this)}
 					/>
 				</div>
