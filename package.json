@@ -43,6 +43,9 @@
     "alt-container": "^1.0.2",
     "alt-utils": "^1.0.0",
     "chart.js": "^2.0.2",
+    "move": "^0.4.9",
+    "move-js": "^0.5.0",
+    "movejs": "^1.0.5",
     "node-uuid": "^1.4.7",
     "progressbar.js": "^1.0.1",
     "react": "^0.14.7",
@@ -50,6 +53,7 @@
     "react-dnd": "^2.1.0",
     "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "^0.14.7",
-    "src": "^1.1.2"
+    "src": "^1.1.2",
+    "webpack": "^1.13.0"
   }
 }

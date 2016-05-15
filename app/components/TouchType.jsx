@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import StatsBar from './StatsBar';
 import ProgressBar from './ProgressBar';
 import KeySuggestion from './KeySuggestion';
+import Game from './Game.jsx';
 
 export default class TouchType extends React.Component {
 	constructor(props) {
@@ -145,6 +146,7 @@ export default class TouchType extends React.Component {
 		const completed = 100 / parts.length * this.index;
 		return (
 			<div className="tt-app">
+				<Game />
 				<div className="tt-app-main">
 					<StatsBar stats={this.stats} />
 					<div className="tt-input-text">

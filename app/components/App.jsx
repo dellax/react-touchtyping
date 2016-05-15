@@ -2,6 +2,7 @@ import React from 'react';
 import TouchTypeLearning from './TouchTypeLearning.jsx';
 import TouchType from './TouchType.jsx';
 import Statistics from './Statistics.jsx';
+import Game from './Game.jsx';
 
 let text = `What suffering will have to be endured before 
 the workers realize that? It was from a man in Arizona. What 
@@ -25,7 +26,7 @@ let stats = {
 
 const App = () => (
 	<div id="page-wrap">
-		<Statistics stats={stats} />
+		<TouchType text={text} />
 	</div>	
 )
 
