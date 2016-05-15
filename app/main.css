@@ -450,3 +450,43 @@
   width: 100px;
   height: 59px;
 }
+
+/* ===TRAFICLIGHT=== */
+.trafficlight-countdown {
+  width: 430px;
+  height: 60px;
+  padding: 10px;
+  background-color: gray;
+  display: block;
+  line-height: 60px;
+  vertical-align: middle;
+}
+
+.trafficlight-circle {
+  border: 5px solid #000;
+  width: 50px;
+  height: 50px;
+  float: left;
+  background-color: black;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  margin-right: 5px;
+}
+
+.trafficlight-text {
+  margin-left: 20px;
+  color: white;
+  font-size: 30px;
+}
+
+.fade-leave {
+  transform  : scale(1);
+  opacity    : 1;
+  transition : all .5s;
+}
+
+.fade-leave.fade-leave-active {
+  transform : scale(2);
+  opacity   : 0;
+}

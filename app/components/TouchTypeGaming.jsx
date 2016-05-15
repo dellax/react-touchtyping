@@ -25,6 +25,11 @@ export default class TouchType extends React.Component {
 		this.state = {parts, input: '', inputStyles};
 	}
 
+	componentDidMount() {
+		// countdown and focus to input after
+		this.refs.typingInput.focus();
+	}
+
 	createInitialParts(text) {
 		let textSplitted = text.split(' ');
 		let parts = [];
@@ -158,7 +163,7 @@ export default class TouchType extends React.Component {
 		const {parts, input, inputStyles} = this.state;
 		const completed = 100 / parts.length * this.index;
 		return (
-			<div className="tt-app">
+			<div className="tt-app">   
 				<Game completed={completed} />
 				<div className="tt-app-main">
 					<StatsBar stats={this.stats} />
@@ -170,8 +175,10 @@ export default class TouchType extends React.Component {
 					<ProgressBar completed={completed} />
 					<input
 						type="text"
+						ref="typingInput"
 						value={input}
 						style={inputStyles}
+						disabled={true}
 						onChange={this.handleChange.bind(this)}
 					/>
 				</div>

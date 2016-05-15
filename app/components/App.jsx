@@ -4,6 +4,7 @@ import TouchTypeGaming from './TouchTypeGaming.jsx';
 import TouchType from './TouchType.jsx';
 import Statistics from './Statistics.jsx';
 import Game from './Game.jsx';
+import TrafficLightCountdown from './TrafficLightCountdown.jsx';
 
 let text = `What suffering will have to be endured before 
 the workers realize that? It was from a man in Arizona. What 
@@ -27,7 +28,7 @@ let stats = {
 
 const App = () => (
 	<div id="page-wrap">
-		<TouchTypeGaming text={text} />
+		<TrafficLightCountdown text={text} onComplete={console.log('lol')} />
 	</div>	
 )
 
