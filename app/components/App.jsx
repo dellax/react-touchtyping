@@ -1,5 +1,6 @@
 import React from 'react';
 import TouchTypeLearning from './TouchTypeLearning.jsx';
+import TouchTypeGaming from './TouchTypeGaming.jsx';
 import TouchType from './TouchType.jsx';
 import Statistics from './Statistics.jsx';
 import Game from './Game.jsx';
@@ -26,7 +27,7 @@ let stats = {
 
 const App = () => (
 	<div id="page-wrap">
-		<TouchType text={text} />
+		<TouchTypeGaming text={text} />
 	</div>	
 )
 

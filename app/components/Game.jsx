@@ -8,7 +8,7 @@ export default class Game extends React.Component {
 
 	render() {
 		const completed = this.props.completed;
-		console.log(completed);
+		
 		return (
 			<div className="game-cars">
 				<Player completed={completed} />
