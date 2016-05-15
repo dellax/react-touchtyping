@@ -423,6 +423,11 @@
   background-color: green;
 }
 
+.player {
+  position: relative;
+  width: 670px;
+}
+
 .road {
   position: relative;
   width: 600px;
@@ -436,4 +441,12 @@
   position: absolute;
   top: 5px;
   left: 15px;
+}
+
+.info {
+  position: absolute;
+  top: 0px;
+  left: 610px;
+  width: 100px;
+  height: 59px;
 }

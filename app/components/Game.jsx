@@ -6,15 +6,14 @@ export default class Game extends React.Component {
 		super(props);
 	}
 
-	
-
 	render() {
-		
+		const completed = this.props.completed;
+		console.log(completed);
 		return (
 			<div className="game-cars">
-				<Player completed={1} />
+				<Player completed={completed} />
 				<Player completed={10} />
-				<Player completed={30} />
+				<Player completed={10} />
 			</div>
 		)
 	}

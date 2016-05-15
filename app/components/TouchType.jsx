@@ -146,7 +146,7 @@ export default class TouchType extends React.Component {
 		const completed = 100 / parts.length * this.index;
 		return (
 			<div className="tt-app">
-				<Game />
+				<Game completed={completed} />
 				<div className="tt-app-main">
 					<StatsBar stats={this.stats} />
 					<div className="tt-input-text">
