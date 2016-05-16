@@ -25,6 +25,7 @@ export default class TrafficLightCountdown extends React.Component {
 
 	componentWillReceiveProps(props) {
 		let countdown = props.countdown;
+		if (!this.state.isShown) return;
 		this.tick(countdown);
 	}
 
@@ -47,10 +48,13 @@ export default class TrafficLightCountdown extends React.Component {
 				],
 				isShown: true
 			});
-			this.setState({
-				styles: this.state.styles,
-				isShown: false
-			});
+			setTimeout(() => {
+				this.setState({
+					styles: [...this.state.styles],
+					isShown: false
+				})}, 
+			200);
+			
 		} else {
 			this.setState({
 				styles: [...this.state.styles],
